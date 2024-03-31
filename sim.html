@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+    <title>Self-driving car - No libraries</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="miniMapCanvas"></canvas>
+
+    <canvas id="carCanvas"></canvas>
+    <div id="verticalButtons">
+        <button onclick="save()">💾</button>
+        <label for="fileInput" class="file-input-label">📁 
+        <input
+        type="file"
+        id="fileInput"
+        accept=".brain"
+        onchange="load(event)"
+      />
+    </label>
+        <button onclick="discard()">🗑️</button>
+    </div>
+    
+    <div>
+    <canvas id="networkCanvas"></canvas>
+</div>
+    <script src="world/js/world.js"></script>
+    <script src="world/js/viewport.js"></script>
+    <script src="world/js/markings/marking.js"></script>
+    <script src="world/js/markings/stop.js"></script>
+    <script src="world/js/markings/car.js"></script>
+    <script src="world/js/markings/crossing.js"></script>
+    <script src="world/js/markings/light.js"></script>
+    <script src="world/js/markings/target.js"></script>
+
+    <script src="world/js/editors/markingEditor.js"></script>
+    <script src="world/js/editors/graphEditor.js"></script>
+    <script src="world/js/editors/crossingEditor.js"></script>
+    <script src="world/js/editors/stopEditor.js"></script>
+    <script src="world/js/editors/CarEditor.js"></script>
+    <script src="world/js/editors/lightEditor.js"></script>
+    <script src="world/js/editors/targetEditor.js"></script>
+
+    <script src="world/js/items/tree.js"></script>
+    <script src="world/js/items/building.js"></script>
+    <script src="world/js/math/utils.js"></script>
+    <script src="world/js/math/graph.js"></script>
+    <script src="world/js/primitives/point.js"></script>
+    <script src="world/js/primitives/segment.js"></script>
+    <script src="world/js/primitives/polygon.js"></script>
+    <script src="world/js/primitives/envelope.js"></script>
+    <!-- <script src="world/savings/awholenewworld.world"></script> -->
+    <script src="visualizer.js"></script>
+    <script src="minimap.js"></script>
+    <script src="network.js"></script>
+    <script src="sensor.js"></script>
+    <script src="utils.js"></script>
+    <script src="controls.js"></script>
+    <script src="car.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
+
+
