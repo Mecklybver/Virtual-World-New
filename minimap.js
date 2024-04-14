@@ -48,7 +48,10 @@ class Map {
       }
     }
 
-    
+    for (const point of this.graph.points) {
+      point.draw(this.ctx, { size: 40, color: "red" });
+    }
+
     // Draw cars' positions
     this.ctx.restore();
     this.ctx.arc(this.size / 2, this.size / 2, 150, 0, Math.PI * 2);
@@ -65,41 +68,54 @@ class Map {
       this.ctx.fill();
 
       if (car.type === "KEYS") {
-        
         const carSeg = getNearestSegment(car, this.world.corridor.skeleton);
+
         for (let i = 0; i < this.world.corridor.skeleton.length; i++) {
           const s = this.world.corridor.skeleton[i];
-          // s.draw(carCtx, { color: "red", width: 1 });
+          const scaledP1 = {
+            x: (s.p1.x - viewPoint.x) * scaler + this.size / 2,
+            y: (s.p1.y - viewPoint.y) * scaler + this.size / 2,
+          };
+
           if (s.equals(carSeg)) {
             const proj = s.projectPoint(car);
             proj.point.draw(this.ctx);
-            const scaledP1 = {
-              x: (s.p1.x - viewPoint.x) * scaler + this.size / 2,
-              y: (s.p1.y - viewPoint.y) * scaler + this.size / 2,
-            };
+
             const scaledProjPoint = {
               x: (proj.point.x - viewPoint.x) * scaler + this.size / 2,
               y: (proj.point.y - viewPoint.y) * scaler + this.size / 2,
             };
 
             const firstPartOfSegment = new Segment(scaledP1, scaledProjPoint);
-            // firstPartOfSegment.draw(this.ctx, { color: "red", width: 3 });
+            firstPartOfSegment.draw(this.ctx, { color: "red", width: 3 });
             car.progress += firstPartOfSegment.length();
             break;
-          } else {
-            console.log(s);
-            s.draw(this.ctx, { color: "red", width: 3 });
           }
-        }
-        this.ctx.lineWidth = 1;
 
-        this.point.draw(this.ctx, {
-          color: car.color,
-          fill: true,
-          dash: [3, 3],
-          time,
-        });
+          const scaledP2 = {
+            x: (s.p2.x - viewPoint.x) * scaler + this.size / 2,
+            y: (s.p2.y - viewPoint.y) * scaler + this.size / 2,
+          };
+
+          // Draw the segment
+          this.ctx.beginPath();
+          this.ctx.moveTo(scaledP1.x, scaledP1.y);
+          this.ctx.lineTo(scaledP2.x, scaledP2.y);
+          this.ctx.strokeStyle = "red";
+          this.ctx.lineWidth = 3;
+          this.ctx.stroke();
+        }
       }
+      this.ctx.restore()
+      this.ctx.lineWidth = 1;
+
+      this.point.draw(this.ctx, {
+        color: car.color,
+        fill: true,
+        dash: [3, 3],
+        time,
+      });
     }
   }
 }
+// }
